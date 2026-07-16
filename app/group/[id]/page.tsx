@@ -77,7 +77,7 @@ export default async function GroupPage({
             </div>
           ) : (
             <p className="text-neutral-400 text-base">
-              Lade andere ein, indem du die URL teilst.
+              Lade andere ein, indem du die URL teilst. Oder lass es...
             </p>
           )}
 
