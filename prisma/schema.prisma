@@ -1,0 +1,38 @@
+generator client {
+  provider               = "prisma-client"
+  output                 = "../generated/prisma"
+  engineType             = "client"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Group {
+  id           String        @id @default(uuid())
+  name         String
+  isClosed     Boolean       @default(false)
+  participants Participant[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Participant {
+  id           String        @id @default(uuid())
+  groupId      String
+  group        Group         @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  name         String
+  password     String
+  wishlist     String
+  isAdmin      Boolean       @default(false)
+  assignedToId String?
+  assignedTo   Participant?  @relation("Assignment", fields: [assignedToId], references: [id])
+  assignedFrom Participant[] @relation("Assignment")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([groupId, name])
+}
