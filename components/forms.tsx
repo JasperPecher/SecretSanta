@@ -155,7 +155,7 @@ export function JoinForm({ groupId }: { groupId: string }) {
           name="name"
           required
           placeholder="Dein Name"
-          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
         />
       </div>
       <div>
@@ -164,7 +164,7 @@ export function JoinForm({ groupId }: { groupId: string }) {
           name="password"
           required
           placeholder="Wähle ein Passwort"
-          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
         />
       </div>
 
