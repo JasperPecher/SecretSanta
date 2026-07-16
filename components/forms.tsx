@@ -73,7 +73,7 @@ export function CreateGroupForm() {
           htmlFor="dueDate"
           className="block text-sm font-medium text-neutral-300 mb-1"
         >
-          Frist(Optional)
+          Frist (Optional)
         </label>
         <input
           type="date"
