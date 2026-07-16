@@ -64,7 +64,7 @@ export function CreateGroupForm() {
         <textarea
           id="description"
           name="description"
-          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4 text-sm"
           placeholder="z.B. Budget 50€, keine schlechten Geschenke bitte!"
           rows={3}
         />
@@ -300,7 +300,7 @@ export function WishlistForm({
                     }
                     placeholder="Wunsch (z.B. Eine Flasche Oldesloer Doppelkorn)"
                     required
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-neutral-100 focus:outline-none transition-all text-base sm:text-sm"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
                   />
                   <input
                     type="text"
@@ -309,7 +309,7 @@ export function WishlistForm({
                       updateWish(wish.id, "comment", e.target.value)
                     }
                     placeholder="Kommentar oder Link (Optional)"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-neutral-100 focus:outline-none transition-all text-base sm:text-sm"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
                   />
                 </div>
                 <button
@@ -417,7 +417,7 @@ export function UpdateGroupForm({
           id="description"
           name="description"
           defaultValue={initialDescription || ""}
-          className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4"
+          className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4 text-sm"
           placeholder="z.B. Budget 50€, keine schlechten Geschenke bitte!"
           rows={3}
         />
