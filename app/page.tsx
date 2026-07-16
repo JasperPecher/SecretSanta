@@ -1,6 +1,5 @@
 import { Gift } from "lucide-react";
 import { CreateGroupForm } from "@/components/forms";
-import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
           <CreateGroupForm />
         </div>
       </div>
-      <Analytics />
     </main>
   );
 }
