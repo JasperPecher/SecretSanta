@@ -5,9 +5,17 @@ import {
   LoginForm,
   WishlistForm,
   DrawButton,
+  UpdateGroupForm,
 } from "@/components/forms";
 import { notFound } from "next/navigation";
-import { Gift, Lock, UserCheck, Snowflake, CheckCircle2 } from "lucide-react";
+import {
+  Gift,
+  Lock,
+  UserCheck,
+  Snowflake,
+  CheckCircle2,
+  Calendar,
+} from "lucide-react";
 import { parseWishlist } from "@/lib/wishlist";
 
 export default async function GroupPage({
@@ -70,6 +78,18 @@ export default async function GroupPage({
           ) : (
             <p className="text-neutral-400 text-base">
               Lade andere ein, indem du die URL teilst.
+            </p>
+          )}
+
+          {group.dueDate && (
+            <div className="inline-flex items-center text-neutral-400 bg-neutral-900 px-4 py-1.5 rounded-full text-sm font-medium border border-neutral-800 mt-2">
+              <Calendar className="w-4 h-4 mr-2" />
+              Frist: {new Date(group.dueDate).toLocaleDateString("de-DE")}
+            </div>
+          )}
+          {group.description && (
+            <p className="text-neutral-300 text-base max-w-2xl mx-auto bg-neutral-900/50 p-4 rounded-xl border border-neutral-800 mt-4">
+              {group.description}
             </p>
           )}
         </header>
@@ -171,29 +191,44 @@ export default async function GroupPage({
                   Admin-Bereich
                 </h3>
 
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h4 className="font-medium text-neutral-400 mb-2">
-                      Teilnehmer ({group.participants.length})
-                    </h4>
-                    <ul className="space-y-2 mb-6">
-                      {group.participants.map(
-                        (p: { id: string; name: string; isAdmin: boolean }) => (
-                          <li
-                            key={p.id}
-                            className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex items-center text-neutral-300"
-                          >
-                            <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
-                            {p.name}{" "}
-                            {p.isAdmin && (
-                              <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
-                                Admin
-                              </span>
-                            )}
-                          </li>
-                        ),
-                      )}
-                    </ul>
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  <div className="space-y-8">
+                    <div>
+                      <h4 className="font-medium text-neutral-400 mb-2">
+                        Teilnehmer ({group.participants.length})
+                      </h4>
+                      <ul className="space-y-2 mb-6">
+                        {group.participants.map(
+                          (p: {
+                            id: string;
+                            name: string;
+                            isAdmin: boolean;
+                          }) => (
+                            <li
+                              key={p.id}
+                              className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex items-center text-neutral-300"
+                            >
+                              <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
+                              {p.name}{" "}
+                              {p.isAdmin && (
+                                <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
+                                  Admin
+                                </span>
+                              )}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+
+                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+                      <UpdateGroupForm
+                        groupId={group.id}
+                        adminId={me.id}
+                        initialDescription={group.description}
+                        initialDueDate={group.dueDate}
+                      />
+                    </div>
                   </div>
 
                   <div>

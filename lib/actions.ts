@@ -18,6 +18,9 @@ export async function createGroup(
   const password = formData.get("password") as string;
   const wishTitle = formData.get("wishTitle") as string;
   const wishComment = formData.get("wishComment") as string;
+  const description = formData.get("description") as string;
+  const dueDateStr = formData.get("dueDate") as string;
+  const dueDate = dueDateStr ? new Date(dueDateStr) : null;
 
   let wishlistString = "";
   if (wishTitle) {
@@ -50,6 +53,8 @@ export async function createGroup(
     data: {
       id: shortId,
       name: groupName,
+      description: description || null,
+      dueDate: dueDate,
       participants: {
         create: {
           name: adminName,
@@ -245,6 +250,41 @@ export async function drawNames(
       where: { id: groupId },
       data: { isClosed: true },
     });
+  });
+
+  redirect(`/group/${groupId}`);
+}
+
+export async function updateGroupDetails(
+  groupId: string,
+  adminId: string,
+  prevState: FormState,
+  formData: FormData,
+): Promise<{ error?: string } | undefined> {
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+    include: { participants: true },
+  });
+
+  if (!group || group.isClosed) {
+    return { error: "Ungültige Gruppe oder es wurde bereits gezogen." };
+  }
+
+  const admin = group.participants.find(
+    (p: { id: string; isAdmin: boolean }) => p.id === adminId,
+  );
+  if (!admin || !admin.isAdmin) return { error: "Unbefugt." };
+
+  const description = formData.get("description") as string;
+  const dueDateStr = formData.get("dueDate") as string;
+  const dueDate = dueDateStr ? new Date(dueDateStr) : null;
+
+  await prisma.group.update({
+    where: { id: groupId },
+    data: {
+      description: description || null,
+      dueDate: dueDate,
+    },
   });
 
   redirect(`/group/${groupId}`);

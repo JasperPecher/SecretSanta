@@ -27,6 +27,8 @@ export type AggregateGroup = {
 export type GroupMinAggregateOutputType = {
   id: string | null
   name: string | null
+  description: string | null
+  dueDate: Date | null
   isClosed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -35,6 +37,8 @@ export type GroupMinAggregateOutputType = {
 export type GroupMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  description: string | null
+  dueDate: Date | null
   isClosed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -43,6 +47,8 @@ export type GroupMaxAggregateOutputType = {
 export type GroupCountAggregateOutputType = {
   id: number
   name: number
+  description: number
+  dueDate: number
   isClosed: number
   createdAt: number
   updatedAt: number
@@ -53,6 +59,8 @@ export type GroupCountAggregateOutputType = {
 export type GroupMinAggregateInputType = {
   id?: true
   name?: true
+  description?: true
+  dueDate?: true
   isClosed?: true
   createdAt?: true
   updatedAt?: true
@@ -61,6 +69,8 @@ export type GroupMinAggregateInputType = {
 export type GroupMaxAggregateInputType = {
   id?: true
   name?: true
+  description?: true
+  dueDate?: true
   isClosed?: true
   createdAt?: true
   updatedAt?: true
@@ -69,6 +79,8 @@ export type GroupMaxAggregateInputType = {
 export type GroupCountAggregateInputType = {
   id?: true
   name?: true
+  description?: true
+  dueDate?: true
   isClosed?: true
   createdAt?: true
   updatedAt?: true
@@ -150,6 +162,8 @@ export type GroupGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type GroupGroupByOutputType = {
   id: string
   name: string
+  description: string | null
+  dueDate: Date | null
   isClosed: boolean
   createdAt: Date
   updatedAt: Date
@@ -179,6 +193,8 @@ export type GroupWhereInput = {
   NOT?: Prisma.GroupWhereInput | Prisma.GroupWhereInput[]
   id?: Prisma.StringFilter<"Group"> | string
   name?: Prisma.StringFilter<"Group"> | string
+  description?: Prisma.StringNullableFilter<"Group"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Group"> | Date | string | null
   isClosed?: Prisma.BoolFilter<"Group"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Group"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Group"> | Date | string
@@ -188,6 +204,8 @@ export type GroupWhereInput = {
 export type GroupOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   isClosed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -200,6 +218,8 @@ export type GroupWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.GroupWhereInput[]
   NOT?: Prisma.GroupWhereInput | Prisma.GroupWhereInput[]
   name?: Prisma.StringFilter<"Group"> | string
+  description?: Prisma.StringNullableFilter<"Group"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Group"> | Date | string | null
   isClosed?: Prisma.BoolFilter<"Group"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Group"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Group"> | Date | string
@@ -209,6 +229,8 @@ export type GroupWhereUniqueInput = Prisma.AtLeast<{
 export type GroupOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   isClosed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -223,6 +245,8 @@ export type GroupScalarWhereWithAggregatesInput = {
   NOT?: Prisma.GroupScalarWhereWithAggregatesInput | Prisma.GroupScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Group"> | string
   name?: Prisma.StringWithAggregatesFilter<"Group"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Group"> | string | null
+  dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Group"> | Date | string | null
   isClosed?: Prisma.BoolWithAggregatesFilter<"Group"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Group"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Group"> | Date | string
@@ -231,6 +255,8 @@ export type GroupScalarWhereWithAggregatesInput = {
 export type GroupCreateInput = {
   id?: string
   name: string
+  description?: string | null
+  dueDate?: Date | string | null
   isClosed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -240,6 +266,8 @@ export type GroupCreateInput = {
 export type GroupUncheckedCreateInput = {
   id?: string
   name: string
+  description?: string | null
+  dueDate?: Date | string | null
   isClosed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -249,6 +277,8 @@ export type GroupUncheckedCreateInput = {
 export type GroupUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -258,6 +288,8 @@ export type GroupUpdateInput = {
 export type GroupUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -267,6 +299,8 @@ export type GroupUncheckedUpdateInput = {
 export type GroupCreateManyInput = {
   id?: string
   name: string
+  description?: string | null
+  dueDate?: Date | string | null
   isClosed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -275,6 +309,8 @@ export type GroupCreateManyInput = {
 export type GroupUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -283,6 +319,8 @@ export type GroupUpdateManyMutationInput = {
 export type GroupUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -291,6 +329,8 @@ export type GroupUncheckedUpdateManyInput = {
 export type GroupCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   isClosed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -299,6 +339,8 @@ export type GroupCountOrderByAggregateInput = {
 export type GroupMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   isClosed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -307,6 +349,8 @@ export type GroupMaxOrderByAggregateInput = {
 export type GroupMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   isClosed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -319,6 +363,14 @@ export type GroupScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -346,6 +398,8 @@ export type GroupUpdateOneRequiredWithoutParticipantsNestedInput = {
 export type GroupCreateWithoutParticipantsInput = {
   id?: string
   name: string
+  description?: string | null
+  dueDate?: Date | string | null
   isClosed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -354,6 +408,8 @@ export type GroupCreateWithoutParticipantsInput = {
 export type GroupUncheckedCreateWithoutParticipantsInput = {
   id?: string
   name: string
+  description?: string | null
+  dueDate?: Date | string | null
   isClosed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -378,6 +434,8 @@ export type GroupUpdateToOneWithWhereWithoutParticipantsInput = {
 export type GroupUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -386,6 +444,8 @@ export type GroupUpdateWithoutParticipantsInput = {
 export type GroupUncheckedUpdateWithoutParticipantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -425,6 +485,8 @@ export type GroupCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Ty
 export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
+  dueDate?: boolean
   isClosed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -435,6 +497,8 @@ export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type GroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
+  dueDate?: boolean
   isClosed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -443,6 +507,8 @@ export type GroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type GroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
+  dueDate?: boolean
   isClosed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -451,12 +517,14 @@ export type GroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type GroupSelectScalar = {
   id?: boolean
   name?: boolean
+  description?: boolean
+  dueDate?: boolean
   isClosed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isClosed" | "createdAt" | "updatedAt", ExtArgs["result"]["group"]>
+export type GroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "dueDate" | "isClosed" | "createdAt" | "updatedAt", ExtArgs["result"]["group"]>
 export type GroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Group$participantsArgs<ExtArgs>
   _count?: boolean | Prisma.GroupCountOutputTypeDefaultArgs<ExtArgs>
@@ -472,6 +540,8 @@ export type $GroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    description: string | null
+    dueDate: Date | null
     isClosed: boolean
     createdAt: Date
     updatedAt: Date
@@ -901,6 +971,8 @@ export interface Prisma__GroupClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface GroupFieldRefs {
   readonly id: Prisma.FieldRef<"Group", 'String'>
   readonly name: Prisma.FieldRef<"Group", 'String'>
+  readonly description: Prisma.FieldRef<"Group", 'String'>
+  readonly dueDate: Prisma.FieldRef<"Group", 'DateTime'>
   readonly isClosed: Prisma.FieldRef<"Group", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Group", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Group", 'DateTime'>

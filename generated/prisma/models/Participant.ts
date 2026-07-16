@@ -511,10 +511,6 @@ export type ParticipantUpdateManyWithoutAssignedToNestedInput = {
   deleteMany?: Prisma.ParticipantScalarWhereInput | Prisma.ParticipantScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type ParticipantUncheckedUpdateManyWithoutAssignedToNestedInput = {
   create?: Prisma.XOR<Prisma.ParticipantCreateWithoutAssignedToInput, Prisma.ParticipantUncheckedCreateWithoutAssignedToInput> | Prisma.ParticipantCreateWithoutAssignedToInput[] | Prisma.ParticipantUncheckedCreateWithoutAssignedToInput[]
   connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutAssignedToInput | Prisma.ParticipantCreateOrConnectWithoutAssignedToInput[]

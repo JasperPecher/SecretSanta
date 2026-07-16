@@ -74,6 +74,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const GroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
+  dueDate: 'dueDate',
   isClosed: 'isClosed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

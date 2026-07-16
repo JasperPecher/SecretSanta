@@ -7,6 +7,7 @@ import {
   updateWishlist,
   drawNames,
   createGroup,
+  updateGroupDetails,
 } from "@/lib/actions";
 import { Plus, Trash2 } from "lucide-react";
 import { parseWishlist, stringifyWishlist, WishItem } from "@/lib/wishlist";
@@ -50,8 +51,35 @@ export function CreateGroupForm() {
           id="groupName"
           name="groupName"
           required
-          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4"
           placeholder="z.B. Familie Fürchterlich"
+        />
+
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-neutral-300 mb-1"
+        >
+          Beschreibung (Optional)
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4"
+          placeholder="z.B. Budget 50€, keine schlechten Geschenke bitte!"
+          rows={3}
+        />
+
+        <label
+          htmlFor="dueDate"
+          className="block text-sm font-medium text-neutral-300 mb-1"
+        >
+          Frist(Optional)
+        </label>
+        <input
+          type="date"
+          id="dueDate"
+          name="dueDate"
+          className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
         />
       </div>
 
@@ -342,6 +370,79 @@ export function DrawButton({
         {isPending
           ? "Lose werden gezogen..."
           : "Anmeldungen schließen & Namen ziehen"}
+      </button>
+    </form>
+  );
+}
+
+export function UpdateGroupForm({
+  groupId,
+  adminId,
+  initialDescription,
+  initialDueDate,
+}: {
+  groupId: string;
+  adminId: string;
+  initialDescription?: string | null;
+  initialDueDate?: Date | null;
+}) {
+  const [state, action, isPending] = useActionState<FormState, FormData>(
+    updateGroupDetails.bind(null, groupId, adminId),
+    undefined,
+  );
+
+  const formattedDate = initialDueDate
+    ? new Date(initialDueDate).toISOString().split("T")[0]
+    : "";
+
+  return (
+    <form action={action} className="space-y-4 mt-6">
+      <h4 className="font-medium text-neutral-400 mb-2">
+        Gruppendetails bearbeiten
+      </h4>
+      {state?.error && (
+        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm mb-4">
+          {state.error}
+        </div>
+      )}
+
+      <div>
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-neutral-300 mb-1"
+        >
+          Beschreibung
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          defaultValue={initialDescription || ""}
+          className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all mb-4"
+          placeholder="z.B. Budget 50€, keine schlechten Geschenke bitte!"
+          rows={3}
+        />
+
+        <label
+          htmlFor="dueDate"
+          className="block text-sm font-medium text-neutral-300 mb-1"
+        >
+          Frist
+        </label>
+        <input
+          type="date"
+          id="dueDate"
+          name="dueDate"
+          defaultValue={formattedDate}
+          className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={isPending}
+        className="w-full bg-neutral-800 hover:bg-neutral-700 text-neutral-100 border border-neutral-700 font-medium rounded-xl px-4 py-3.5 transition-colors active:scale-[0.98] disabled:opacity-50"
+      >
+        {isPending ? "Speichern..." : "Gruppendetails aktualisieren"}
       </button>
     </form>
   );

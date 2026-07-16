@@ -16,7 +16,7 @@ export default function Home() {
             Wichteln <span className="text-neutral-400">Organisator</span>
           </h1>
           <p className="text-neutral-400 text-base max-w-sm mx-auto">
-            Erstelle eine Gruppe, lade deine Familie ein und lass den Zufall entscheiden.
+            Erstelle eine Gruppe, du Otto
           </p>
         </div>
 
