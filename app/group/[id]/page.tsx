@@ -121,7 +121,18 @@ export default async function GroupPage({
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-semibold text-neutral-100">
                   Willkommen,{" "}
-                  <span className="text-neutral-300">{me.name}</span>!
+                  <span className="relative inline-block px-2">
+                    <span className="bg-linear-to-r from-red-500 via-green-500 to-yellow-400 bg-clip-text text-transparent font-black text-3xl tracking-widest">
+                      {me.name}
+                    </span>
+                  </span>
+                  {/* <span
+                    className="font-bold bg-gradient-to-r from-red-400 to-yellow-400
+           bg-clip-text text-transparent"
+                  >
+                    {me.name}
+                  </span> */}
+                  !
                 </h2>
               </div>
 
