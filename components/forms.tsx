@@ -176,7 +176,7 @@ export function JoinForm({ groupId }: { groupId: string }) {
           <input
             type="text"
             name="wishTitle"
-            placeholder="Titel (z.B. Eine Flasche Oldesloer Doppelkorn)"
+            placeholder="Titel (z.B. Eine Flasche Oldesloer Korn)"
             className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
           />
           <input
@@ -298,7 +298,7 @@ export function WishlistForm({
                     onChange={(e) =>
                       updateWish(wish.id, "title", e.target.value)
                     }
-                    placeholder="Wunsch (z.B. Eine Flasche Oldesloer Doppelkorn)"
+                    placeholder="Wunsch (z.B. Eine Flasche Oldesloer Korn)"
                     required
                     className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
                   />
