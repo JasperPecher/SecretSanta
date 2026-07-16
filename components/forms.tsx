@@ -177,13 +177,13 @@ export function JoinForm({ groupId }: { groupId: string }) {
             type="text"
             name="wishTitle"
             placeholder="Titel (z.B. Eine Flasche Oldesloer Doppelkorn)"
-            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
           />
           <input
             type="text"
             name="wishComment"
             placeholder="Kommentar oder Link (Optional)"
-            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
           />
         </div>
       </div>
