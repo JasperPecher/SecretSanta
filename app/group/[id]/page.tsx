@@ -122,9 +122,7 @@ export default async function GroupPage({
                 <h2 className="text-2xl font-semibold text-neutral-100">
                   Willkommen,{" "}
                   <span className="relative inline-block px-2">
-                    <span className="bg-linear-to-r from-red-500 via-green-500 to-yellow-400 bg-clip-text text-transparent font-black text-3xl tracking-widest">
-                      {me.name}
-                    </span>
+                    <span className="font-black text-3xl">{me.name}</span>
                   </span>
                   {/* <span
                     className="font-bold bg-gradient-to-r from-red-400 to-yellow-400
