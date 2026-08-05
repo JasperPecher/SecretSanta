@@ -194,6 +194,29 @@ export default async function GroupPage({
                 />
               </div>
             </div>
+            <div>
+              <h4 className="font-medium text-neutral-400 mb-2">
+                Teilnehmer ({group.participants.length})
+              </h4>
+              <ul className="space-y-2 mb-6">
+                {group.participants.map(
+                  (p: { id: string; name: string; isAdmin: boolean }) => (
+                    <li
+                      key={p.id}
+                      className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex items-center text-neutral-300"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
+                      {p.name}{" "}
+                      {p.isAdmin && (
+                        <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
+                          Admin
+                        </span>
+                      )}
+                    </li>
+                  ),
+                )}
+              </ul>
+            </div>
 
             {me.isAdmin && !group.isClosed && (
               <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-10">
@@ -204,34 +227,6 @@ export default async function GroupPage({
 
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="space-y-8">
-                    <div>
-                      <h4 className="font-medium text-neutral-400 mb-2">
-                        Teilnehmer ({group.participants.length})
-                      </h4>
-                      <ul className="space-y-2 mb-6">
-                        {group.participants.map(
-                          (p: {
-                            id: string;
-                            name: string;
-                            isAdmin: boolean;
-                          }) => (
-                            <li
-                              key={p.id}
-                              className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex items-center text-neutral-300"
-                            >
-                              <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
-                              {p.name}{" "}
-                              {p.isAdmin && (
-                                <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
-                                  Admin
-                                </span>
-                              )}
-                            </li>
-                          ),
-                        )}
-                      </ul>
-                    </div>
-
                     <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
                       <UpdateGroupForm
                         groupId={group.id}
