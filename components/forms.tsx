@@ -433,7 +433,7 @@ export function UpdateGroupForm({
           id="dueDate"
           name="dueDate"
           defaultValue={formattedDate}
-          className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all"
+          className="block w-full min-w-0 appearance-none bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-base text-neutral-100 focus:outline-none transition-all"
         />
       </div>
 
