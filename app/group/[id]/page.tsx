@@ -205,9 +205,11 @@ export default async function GroupPage({
                     >
                       <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
                       {p.name}{" "}
-                      <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
-                        Admin
-                      </span>
+                      {p.isAdmin && (
+                        <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
+                          Admin
+                        </span>
+                      )}
                     </li>
                   ),
                 )}
