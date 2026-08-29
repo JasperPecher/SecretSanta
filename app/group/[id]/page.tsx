@@ -30,6 +30,7 @@ export default async function GroupPage({
     include: {
       participants: {
         select: { id: true, name: true, isAdmin: true },
+        orderBy: { name: "asc" },
       },
     },
   });
