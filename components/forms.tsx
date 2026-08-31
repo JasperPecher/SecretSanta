@@ -490,7 +490,7 @@ export function ExclusionsForm({
         Ungewünschte Paarungen
       </h4>
       <p className="text-sm text-neutral-500 mb-4">
-        Lege fest, wer wen nicht ziehen darf (z.B. Partner).
+        Lege fest, wer wen nicht ziehen darf (z.B. Partner)
       </p>
 
       {state?.error && (
