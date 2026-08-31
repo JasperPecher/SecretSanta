@@ -161,11 +161,11 @@ export default async function GroupPage({
                                 •
                               </span>
                               <div className="min-w-0 flex-1">
-                                <span className="font-medium text-neutral-200 wrap-break-words">
+                                <span className="font-medium text-neutral-200 wrap-break-word">
                                   {wish.title}
                                 </span>
                                 {wish.comment && (
-                                  <p className="text-sm text-neutral-500 mt-1 whitespace-pre-wrap wrap-break-words">
+                                  <p className="text-sm text-neutral-500 mt-1 whitespace-pre-wrap wrap-break-word">
                                     {wish.comment}
                                   </p>
                                 )}
