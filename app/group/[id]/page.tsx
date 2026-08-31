@@ -157,15 +157,15 @@ export default async function GroupPage({
                         {renderedWishlist.map((wish) => (
                           <li key={wish.id}>
                             <div className="flex items-start">
-                              <span className="text-neutral-500 mr-2 mt-0.5">
+                              <span className="text-neutral-500 mr-2 mt-0.5 shrink-0">
                                 •
                               </span>
-                              <div>
-                                <span className="font-medium text-neutral-200">
+                              <div className="min-w-0 flex-1">
+                                <span className="font-medium text-neutral-200 wrap-break-words">
                                   {wish.title}
                                 </span>
                                 {wish.comment && (
-                                  <p className="text-sm text-neutral-500 mt-1 whitespace-pre-wrap">
+                                  <p className="text-sm text-neutral-500 mt-1 whitespace-pre-wrap wrap-break-words">
                                     {wish.comment}
                                   </p>
                                 )}
@@ -200,11 +200,19 @@ export default async function GroupPage({
               </h4>
               <ul className="space-y-2 mb-6">
                 {group.participants.map(
-                  (p: { id: string; name: string; isAdmin: boolean; exclusions: string[] }) => {
+                  (p: {
+                    id: string;
+                    name: string;
+                    isAdmin: boolean;
+                    exclusions: string[];
+                  }) => {
                     const excludedNames = p.exclusions
-                      .map((id) => group.participants.find((p2) => p2.id === id)?.name)
+                      .map(
+                        (id) =>
+                          group.participants.find((p2) => p2.id === id)?.name,
+                      )
                       .filter(Boolean);
-                      
+
                     return (
                       <li
                         key={p.id}
@@ -248,7 +256,7 @@ export default async function GroupPage({
                         initialDueDate={group.dueDate}
                       />
                     </div>
-                    
+
                     <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
                       <ExclusionsForm
                         groupId={group.id}
