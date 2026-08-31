@@ -56,6 +56,7 @@ export type ParticipantCountAggregateOutputType = {
   wishlist: number
   isAdmin: number
   assignedToId: number
+  exclusions: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -94,6 +95,7 @@ export type ParticipantCountAggregateInputType = {
   wishlist?: true
   isAdmin?: true
   assignedToId?: true
+  exclusions?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +181,7 @@ export type ParticipantGroupByOutputType = {
   wishlist: string
   isAdmin: boolean
   assignedToId: string | null
+  exclusions: string[]
   createdAt: Date
   updatedAt: Date
   _count: ParticipantCountAggregateOutputType | null
@@ -212,6 +215,7 @@ export type ParticipantWhereInput = {
   wishlist?: Prisma.StringFilter<"Participant"> | string
   isAdmin?: Prisma.BoolFilter<"Participant"> | boolean
   assignedToId?: Prisma.StringNullableFilter<"Participant"> | string | null
+  exclusions?: Prisma.StringNullableListFilter<"Participant">
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
@@ -227,6 +231,7 @@ export type ParticipantOrderByWithRelationInput = {
   wishlist?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   assignedToId?: Prisma.SortOrderInput | Prisma.SortOrder
+  exclusions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   group?: Prisma.GroupOrderByWithRelationInput
@@ -246,6 +251,7 @@ export type ParticipantWhereUniqueInput = Prisma.AtLeast<{
   wishlist?: Prisma.StringFilter<"Participant"> | string
   isAdmin?: Prisma.BoolFilter<"Participant"> | boolean
   assignedToId?: Prisma.StringNullableFilter<"Participant"> | string | null
+  exclusions?: Prisma.StringNullableListFilter<"Participant">
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
@@ -261,6 +267,7 @@ export type ParticipantOrderByWithAggregationInput = {
   wishlist?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   assignedToId?: Prisma.SortOrderInput | Prisma.SortOrder
+  exclusions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ParticipantCountOrderByAggregateInput
@@ -279,6 +286,7 @@ export type ParticipantScalarWhereWithAggregatesInput = {
   wishlist?: Prisma.StringWithAggregatesFilter<"Participant"> | string
   isAdmin?: Prisma.BoolWithAggregatesFilter<"Participant"> | boolean
   assignedToId?: Prisma.StringNullableWithAggregatesFilter<"Participant"> | string | null
+  exclusions?: Prisma.StringNullableListFilter<"Participant">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Participant"> | Date | string
 }
@@ -289,6 +297,7 @@ export type ParticipantCreateInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   group: Prisma.GroupCreateNestedOneWithoutParticipantsInput
@@ -304,6 +313,7 @@ export type ParticipantUncheckedCreateInput = {
   wishlist: string
   isAdmin?: boolean
   assignedToId?: string | null
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedFrom?: Prisma.ParticipantUncheckedCreateNestedManyWithoutAssignedToInput
@@ -315,6 +325,7 @@ export type ParticipantUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   group?: Prisma.GroupUpdateOneRequiredWithoutParticipantsNestedInput
@@ -330,6 +341,7 @@ export type ParticipantUncheckedUpdateInput = {
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   assignedToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedFrom?: Prisma.ParticipantUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -343,6 +355,7 @@ export type ParticipantCreateManyInput = {
   wishlist: string
   isAdmin?: boolean
   assignedToId?: string | null
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -353,6 +366,7 @@ export type ParticipantUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -365,6 +379,7 @@ export type ParticipantUncheckedUpdateManyInput = {
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   assignedToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,6 +392,14 @@ export type ParticipantListRelationFilter = {
 
 export type ParticipantOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type ParticipantNullableScalarRelationFilter = {
@@ -397,6 +420,7 @@ export type ParticipantCountOrderByAggregateInput = {
   wishlist?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   assignedToId?: Prisma.SortOrder
+  exclusions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -467,6 +491,10 @@ export type ParticipantUncheckedUpdateManyWithoutGroupNestedInput = {
   deleteMany?: Prisma.ParticipantScalarWhereInput | Prisma.ParticipantScalarWhereInput[]
 }
 
+export type ParticipantCreateexclusionsInput = {
+  set: string[]
+}
+
 export type ParticipantCreateNestedOneWithoutAssignedFromInput = {
   create?: Prisma.XOR<Prisma.ParticipantCreateWithoutAssignedFromInput, Prisma.ParticipantUncheckedCreateWithoutAssignedFromInput>
   connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutAssignedFromInput
@@ -485,6 +513,11 @@ export type ParticipantUncheckedCreateNestedManyWithoutAssignedToInput = {
   connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutAssignedToInput | Prisma.ParticipantCreateOrConnectWithoutAssignedToInput[]
   createMany?: Prisma.ParticipantCreateManyAssignedToInputEnvelope
   connect?: Prisma.ParticipantWhereUniqueInput | Prisma.ParticipantWhereUniqueInput[]
+}
+
+export type ParticipantUpdateexclusionsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type ParticipantUpdateOneWithoutAssignedFromNestedInput = {
@@ -531,6 +564,7 @@ export type ParticipantCreateWithoutGroupInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedTo?: Prisma.ParticipantCreateNestedOneWithoutAssignedFromInput
@@ -544,6 +578,7 @@ export type ParticipantUncheckedCreateWithoutGroupInput = {
   wishlist: string
   isAdmin?: boolean
   assignedToId?: string | null
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedFrom?: Prisma.ParticipantUncheckedCreateNestedManyWithoutAssignedToInput
@@ -586,6 +621,7 @@ export type ParticipantScalarWhereInput = {
   wishlist?: Prisma.StringFilter<"Participant"> | string
   isAdmin?: Prisma.BoolFilter<"Participant"> | boolean
   assignedToId?: Prisma.StringNullableFilter<"Participant"> | string | null
+  exclusions?: Prisma.StringNullableListFilter<"Participant">
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
 }
@@ -596,6 +632,7 @@ export type ParticipantCreateWithoutAssignedFromInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   group: Prisma.GroupCreateNestedOneWithoutParticipantsInput
@@ -610,6 +647,7 @@ export type ParticipantUncheckedCreateWithoutAssignedFromInput = {
   wishlist: string
   isAdmin?: boolean
   assignedToId?: string | null
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -625,6 +663,7 @@ export type ParticipantCreateWithoutAssignedToInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   group: Prisma.GroupCreateNestedOneWithoutParticipantsInput
@@ -638,6 +677,7 @@ export type ParticipantUncheckedCreateWithoutAssignedToInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedFrom?: Prisma.ParticipantUncheckedCreateNestedManyWithoutAssignedToInput
@@ -670,6 +710,7 @@ export type ParticipantUpdateWithoutAssignedFromInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   group?: Prisma.GroupUpdateOneRequiredWithoutParticipantsNestedInput
@@ -684,6 +725,7 @@ export type ParticipantUncheckedUpdateWithoutAssignedFromInput = {
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   assignedToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -711,6 +753,7 @@ export type ParticipantCreateManyGroupInput = {
   wishlist: string
   isAdmin?: boolean
   assignedToId?: string | null
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -721,6 +764,7 @@ export type ParticipantUpdateWithoutGroupInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedTo?: Prisma.ParticipantUpdateOneWithoutAssignedFromNestedInput
@@ -734,6 +778,7 @@ export type ParticipantUncheckedUpdateWithoutGroupInput = {
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   assignedToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedFrom?: Prisma.ParticipantUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -746,6 +791,7 @@ export type ParticipantUncheckedUpdateManyWithoutGroupInput = {
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   assignedToId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -757,6 +803,7 @@ export type ParticipantCreateManyAssignedToInput = {
   password: string
   wishlist: string
   isAdmin?: boolean
+  exclusions?: Prisma.ParticipantCreateexclusionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -767,6 +814,7 @@ export type ParticipantUpdateWithoutAssignedToInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   group?: Prisma.GroupUpdateOneRequiredWithoutParticipantsNestedInput
@@ -780,6 +828,7 @@ export type ParticipantUncheckedUpdateWithoutAssignedToInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedFrom?: Prisma.ParticipantUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -792,6 +841,7 @@ export type ParticipantUncheckedUpdateManyWithoutAssignedToInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   wishlist?: Prisma.StringFieldUpdateOperationsInput | string
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  exclusions?: Prisma.ParticipantUpdateexclusionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -835,6 +885,7 @@ export type ParticipantSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   wishlist?: boolean
   isAdmin?: boolean
   assignedToId?: boolean
+  exclusions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
@@ -851,6 +902,7 @@ export type ParticipantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   wishlist?: boolean
   isAdmin?: boolean
   assignedToId?: boolean
+  exclusions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
@@ -865,6 +917,7 @@ export type ParticipantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   wishlist?: boolean
   isAdmin?: boolean
   assignedToId?: boolean
+  exclusions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
@@ -879,11 +932,12 @@ export type ParticipantSelectScalar = {
   wishlist?: boolean
   isAdmin?: boolean
   assignedToId?: boolean
+  exclusions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ParticipantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "groupId" | "name" | "password" | "wishlist" | "isAdmin" | "assignedToId" | "createdAt" | "updatedAt", ExtArgs["result"]["participant"]>
+export type ParticipantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "groupId" | "name" | "password" | "wishlist" | "isAdmin" | "assignedToId" | "exclusions" | "createdAt" | "updatedAt", ExtArgs["result"]["participant"]>
 export type ParticipantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   assignedTo?: boolean | Prisma.Participant$assignedToArgs<ExtArgs>
@@ -914,6 +968,7 @@ export type $ParticipantPayload<ExtArgs extends runtime.Types.Extensions.Interna
     wishlist: string
     isAdmin: boolean
     assignedToId: string | null
+    exclusions: string[]
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["participant"]>
@@ -1349,6 +1404,7 @@ export interface ParticipantFieldRefs {
   readonly wishlist: Prisma.FieldRef<"Participant", 'String'>
   readonly isAdmin: Prisma.FieldRef<"Participant", 'Boolean'>
   readonly assignedToId: Prisma.FieldRef<"Participant", 'String'>
+  readonly exclusions: Prisma.FieldRef<"Participant", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Participant", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Participant", 'DateTime'>
 }

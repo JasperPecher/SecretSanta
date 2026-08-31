@@ -1,10 +1,13 @@
-export function drawSecretSanta(participantIds: string[]): Record<string, string> | null {
+export function drawSecretSanta(
+  participantIds: string[],
+  exclusionsMap: Record<string, string[]> = {}
+): Record<string, string> | null {
   if (participantIds.length < 2) return null;
 
   let assignments: Record<string, string> = {};
   let isValid = false;
   let attempts = 0;
-  const MAX_ATTEMPTS = 1000;
+  const MAX_ATTEMPTS = 5000;
 
   while (!isValid && attempts < MAX_ATTEMPTS) {
     attempts++;
@@ -19,11 +22,13 @@ export function drawSecretSanta(participantIds: string[]): Record<string, string
     assignments = {};
 
     for (let i = 0; i < participantIds.length; i++) {
-      if (participantIds[i] === receivers[i]) {
+      const giverId = participantIds[i];
+      const receiverId = receivers[i];
+      if (giverId === receiverId || exclusionsMap[giverId]?.includes(receiverId)) {
         isValid = false;
         break;
       }
-      assignments[participantIds[i]] = receivers[i];
+      assignments[giverId] = receiverId;
     }
   }
 

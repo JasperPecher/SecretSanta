@@ -228,8 +228,14 @@ export async function drawNames(
     return { error: "Mindestens 3 Teilnehmer werden benötigt." };
   }
 
+  const exclusionsMap: Record<string, string[]> = {};
+  group.participants.forEach((p: { id: string; exclusions: string[] }) => {
+    exclusionsMap[p.id] = p.exclusions;
+  });
+
   const assignments = drawSecretSanta(
     group.participants.map((p: { id: string }) => p.id),
+    exclusionsMap
   );
   if (!assignments) {
     return {
@@ -285,6 +291,48 @@ export async function updateGroupDetails(
       description: description || null,
       dueDate: dueDate,
     },
+  });
+
+  redirect(`/group/${groupId}`);
+}
+
+export async function updateExclusions(
+  groupId: string,
+  adminId: string,
+  prevState: FormState,
+  formData: FormData,
+): Promise<{ error?: string } | undefined> {
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+    include: { participants: true },
+  });
+
+  if (!group || group.isClosed) {
+    return { error: "Ungültige Gruppe oder es wurde bereits gezogen." };
+  }
+
+  const admin = group.participants.find(
+    (p: { id: string; isAdmin: boolean }) => p.id === adminId,
+  );
+  if (!admin || !admin.isAdmin) return { error: "Unbefugt." };
+
+  // Expect input like: exclusions_{participantId} = JSON array of excluded participant IDs
+  await prisma.$transaction(async (tx) => {
+    for (const p of group.participants) {
+      const exclusionsStr = formData.get(`exclusions_${p.id}`) as string;
+      let exclusions: string[] = [];
+      if (exclusionsStr) {
+        try {
+          exclusions = JSON.parse(exclusionsStr);
+        } catch (e) {
+          // invalid JSON
+        }
+      }
+      await tx.participant.update({
+        where: { id: p.id },
+        data: { exclusions },
+      });
+    }
   });
 
   redirect(`/group/${groupId}`);

@@ -6,6 +6,7 @@ import {
   WishlistForm,
   DrawButton,
   UpdateGroupForm,
+  ExclusionsForm,
 } from "@/components/forms";
 import { notFound } from "next/navigation";
 import {
@@ -29,7 +30,7 @@ export default async function GroupPage({
     where: { id },
     include: {
       participants: {
-        select: { id: true, name: true, isAdmin: true },
+        select: { id: true, name: true, isAdmin: true, exclusions: true },
         orderBy: { name: "asc" },
       },
     },
@@ -199,20 +200,33 @@ export default async function GroupPage({
               </h4>
               <ul className="space-y-2 mb-6">
                 {group.participants.map(
-                  (p: { id: string; name: string; isAdmin: boolean }) => (
-                    <li
-                      key={p.id}
-                      className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex items-center text-neutral-300"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
-                      {p.name}{" "}
-                      {p.isAdmin && (
-                        <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
-                          Admin
-                        </span>
-                      )}
-                    </li>
-                  ),
+                  (p: { id: string; name: string; isAdmin: boolean; exclusions: string[] }) => {
+                    const excludedNames = p.exclusions
+                      .map((id) => group.participants.find((p2) => p2.id === id)?.name)
+                      .filter(Boolean);
+                      
+                    return (
+                      <li
+                        key={p.id}
+                        className="bg-neutral-900 px-3 py-2 rounded-lg border border-neutral-800 flex flex-col justify-center text-neutral-300"
+                      >
+                        <div className="flex items-center">
+                          <div className="w-2 h-2 rounded-full bg-neutral-600 mr-3"></div>
+                          {p.name}{" "}
+                          {p.isAdmin && (
+                            <span className="ml-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded border border-neutral-700">
+                              Admin
+                            </span>
+                          )}
+                        </div>
+                        {excludedNames.length > 0 && (
+                          <div className="ml-5 mt-1 text-xs text-neutral-500">
+                            Darf nicht ziehen: {excludedNames.join(", ")}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  },
                 )}
               </ul>
             </div>
@@ -232,6 +246,14 @@ export default async function GroupPage({
                         adminId={me.id}
                         initialDescription={group.description}
                         initialDueDate={group.dueDate}
+                      />
+                    </div>
+                    
+                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+                      <ExclusionsForm
+                        groupId={group.id}
+                        adminId={me.id}
+                        participants={group.participants}
                       />
                     </div>
                   </div>

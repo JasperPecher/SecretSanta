@@ -33,6 +33,7 @@ model Participant {
   assignedToId String?
   assignedTo   Participant?  @relation("Assignment", fields: [assignedToId], references: [id])
   assignedFrom Participant[] @relation("Assignment")
+  exclusions   String[]      @default([])
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 

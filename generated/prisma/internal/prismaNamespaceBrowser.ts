@@ -92,6 +92,7 @@ export const ParticipantScalarFieldEnum = {
   wishlist: 'wishlist',
   isAdmin: 'isAdmin',
   assignedToId: 'assignedToId',
+  exclusions: 'exclusions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
