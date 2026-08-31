@@ -464,7 +464,9 @@ export function ExclusionsForm({
   );
 
   // Local state to manage checkbox changes before submit
-  const [exclusionsState, setExclusionsState] = useState<Record<string, string[]>>(() => {
+  const [exclusionsState, setExclusionsState] = useState<
+    Record<string, string[]>
+  >(() => {
     const init: Record<string, string[]> = {};
     participants.forEach((p) => {
       init[p.id] = p.exclusions || [];
@@ -488,9 +490,9 @@ export function ExclusionsForm({
         Ungewünschte Paarungen
       </h4>
       <p className="text-sm text-neutral-500 mb-4">
-        Lege fest, wer wen nicht ziehen darf (z.B. Partner oder Eltern).
+        Lege fest, wer wen nicht ziehen darf (z.B. Partner).
       </p>
-      
+
       {state?.error && (
         <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm mb-4">
           {state.error}
@@ -499,13 +501,21 @@ export function ExclusionsForm({
 
       <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
         {participants.map((p) => (
-          <div key={p.id} className="bg-neutral-950 border border-neutral-800 rounded-xl p-4">
-            <h5 className="font-medium text-neutral-200 mb-3">{p.name} darf nicht ziehen:</h5>
+          <div
+            key={p.id}
+            className="bg-neutral-950 border border-neutral-800 rounded-xl p-4"
+          >
+            <h5 className="font-medium text-neutral-200 mb-3">
+              {p.name} darf nicht ziehen:
+            </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {participants
                 .filter((other) => other.id !== p.id)
                 .map((other) => (
-                  <label key={other.id} className="flex items-center space-x-2 text-sm text-neutral-300">
+                  <label
+                    key={other.id}
+                    className="flex items-center space-x-2 text-sm text-neutral-300"
+                  >
                     <input
                       type="checkbox"
                       checked={(exclusionsState[p.id] || []).includes(other.id)}
@@ -517,10 +527,10 @@ export function ExclusionsForm({
                 ))}
             </div>
             {/* Hidden input to pass the JSON stringified array to the form action */}
-            <input 
-              type="hidden" 
-              name={`exclusions_${p.id}`} 
-              value={JSON.stringify(exclusionsState[p.id] || [])} 
+            <input
+              type="hidden"
+              name={`exclusions_${p.id}`}
+              value={JSON.stringify(exclusionsState[p.id] || [])}
             />
           </div>
         ))}
