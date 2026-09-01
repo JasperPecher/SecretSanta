@@ -235,7 +235,7 @@ export async function drawNames(
 
   const assignments = drawSecretSanta(
     group.participants.map((p: { id: string }) => p.id),
-    exclusionsMap
+    exclusionsMap,
   );
   if (!assignments) {
     return {
@@ -325,6 +325,7 @@ export async function updateExclusions(
         try {
           exclusions = JSON.parse(exclusionsStr);
         } catch (e) {
+          console.log(e);
           // invalid JSON
         }
       }
