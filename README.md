@@ -1,6 +1,6 @@
 # Secret Santa
 
-Simple Secret Santa App to create a group, write a wishlist and then draw names without being tracked or enter personal data.
+🎅🏻 Simple Secret Santa App to create a group, write a wishlist and then draw names without being tracked or enter personal data. 🎁
 
 ## Tech Stack
 
@@ -21,17 +21,20 @@ Simple Secret Santa App to create a group, write a wishlist and then draw names 
 ### Local Development
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Database Setup**:
    Ensure your `.env` file is configured with your `DATABASE_URL` (and any other necessary variables). Then, push the database schema:
+
    ```bash
    npx prisma db push
    ```
 
 3. **Start the development server**:
+
    ```bash
    npm run dev
    ```
