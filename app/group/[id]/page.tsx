@@ -18,6 +18,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { parseWishlist } from "@/lib/wishlist";
+import { LinkifiedText } from "@/components/linkified-text";
 
 export default async function GroupPage({
   params,
@@ -161,12 +162,12 @@ export default async function GroupPage({
                                 •
                               </span>
                               <div className="min-w-0 flex-1">
-                                <span className="font-medium text-neutral-200 wrap-break-word">
+                                <span className="font-medium text-neutral-200 break-words [overflow-wrap:anywhere]">
                                   {wish.title}
                                 </span>
                                 {wish.comment && (
-                                  <p className="text-sm text-neutral-500 mt-1 whitespace-pre-wrap wrap-break-word">
-                                    {wish.comment}
+                                  <p className="text-sm text-neutral-400 mt-1 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                                    <LinkifiedText text={wish.comment} />
                                   </p>
                                 )}
                               </div>
