@@ -7,6 +7,7 @@ import {
   DrawButton,
   UpdateGroupForm,
   ExclusionsForm,
+  ToggleWishlistLockForm,
 } from "@/components/forms";
 import { notFound } from "next/navigation";
 import {
@@ -84,6 +85,13 @@ export default async function GroupPage({
             </p>
           )}
 
+          {group.isWishlistLocked && (
+            <div className="inline-flex items-center text-amber-400 bg-amber-400/10 px-4 py-1.5 rounded-full text-sm font-medium border border-amber-400/20">
+              <Lock className="w-4 h-4 mr-2" />
+              Wünsche gesperrt
+            </div>
+          )}
+
           {group.dueDate && (
             <div className="inline-flex items-center text-neutral-400 bg-neutral-900 px-4 py-1.5 rounded-full text-sm font-medium border border-neutral-800 mt-2">
               <Calendar className="w-4 h-4 mr-2" />
@@ -105,7 +113,10 @@ export default async function GroupPage({
                   <UserCheck className="w-5 h-5 mr-3 text-neutral-400" /> Gruppe
                   beitreten
                 </h2>
-                <JoinForm groupId={group.id} />
+                <JoinForm
+                  groupId={group.id}
+                  isWishlistLocked={group.isWishlistLocked}
+                />
               </div>
             )}
 
@@ -192,6 +203,8 @@ export default async function GroupPage({
                   groupId={group.id}
                   participantId={me.id}
                   initialWishlist={me.wishlist}
+                  isWishlistLocked={group.isWishlistLocked}
+                  isAdmin={me.isAdmin}
                 />
               </div>
             </div>
@@ -240,7 +253,7 @@ export default async function GroupPage({
               </ul>
             </div>
 
-            {me.isAdmin && !group.isClosed && (
+            {me.isAdmin && (
               <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-10">
                 <h3 className="text-lg font-semibold mb-6 text-neutral-100 flex items-center">
                   <Lock className="w-5 h-5 mr-3 text-neutral-400" />{" "}
@@ -250,31 +263,60 @@ export default async function GroupPage({
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="space-y-8">
                     <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
-                      <UpdateGroupForm
+                      <h4 className="font-medium text-neutral-300 mb-2 flex items-center">
+                        <Gift className="w-4 h-4 mr-2 text-neutral-400" />
+                        Wunschzettel-Sperre
+                      </h4>
+                      <p className="text-sm text-neutral-400 mb-4">
+                        {group.isWishlistLocked
+                          ? "Wunschzettel sind derzeit gesperrt. Niemand kann Wünsche eintragen oder ändern."
+                          : "Wunschzettel sind derzeit freigegeben. Alle Teilnehmer können Wünsche eintragen und ändern."}
+                      </p>
+                      <ToggleWishlistLockForm
                         groupId={group.id}
                         adminId={me.id}
-                        initialDescription={group.description}
-                        initialDueDate={group.dueDate}
+                        isWishlistLocked={group.isWishlistLocked}
                       />
                     </div>
 
-                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
-                      <ExclusionsForm
-                        groupId={group.id}
-                        adminId={me.id}
-                        participants={group.participants}
-                      />
-                    </div>
+                    {!group.isClosed && (
+                      <>
+                        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+                          <UpdateGroupForm
+                            groupId={group.id}
+                            adminId={me.id}
+                            initialDescription={group.description}
+                            initialDueDate={group.dueDate}
+                          />
+                        </div>
+
+                        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+                          <ExclusionsForm
+                            groupId={group.id}
+                            adminId={me.id}
+                            participants={group.participants}
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <div>
-                    <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-                      <p className="text-sm text-neutral-400 mb-4">
-                        Sobald alle beigetreten sind, klicke unten, um die Lose
-                        zu ziehen. Dies kann nicht rückgängig gemacht werden!
-                      </p>
-                      <DrawButton groupId={group.id} adminId={me.id} />
-                    </div>
+                    {!group.isClosed ? (
+                      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+                        <p className="text-sm text-neutral-400 mb-4">
+                          Sobald alle beigetreten sind, klicke unten, um die Lose
+                          zu ziehen. Dies kann nicht rückgängig gemacht werden!
+                        </p>
+                        <DrawButton groupId={group.id} adminId={me.id} />
+                      </div>
+                    ) : (
+                      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+                        <p className="text-sm text-neutral-400">
+                          Die Namen wurden bereits gezogen und die Anmeldungen sind geschlossen. Du kannst hier weiterhin bei Bedarf die Bearbeitung der Wunschzettel sperren oder entsperren.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -91,17 +91,6 @@ export async function joinGroup(
   const wishTitle = formData.get("wishTitle") as string;
   const wishComment = formData.get("wishComment") as string;
 
-  let wishlistString = "";
-  if (wishTitle) {
-    wishlistString = JSON.stringify([
-      {
-        id: Math.random().toString(36).substring(2),
-        title: wishTitle,
-        comment: wishComment || "",
-      },
-    ]);
-  }
-
   if (!name || !password) {
     return { error: "Bitte fülle alle erforderlichen Felder aus." };
   }
@@ -112,6 +101,17 @@ export async function joinGroup(
 
   if (!group) return { error: "Gruppe nicht gefunden." };
   if (group.isClosed) return { error: "Anmeldungen sind geschlossen." };
+
+  let wishlistString = "";
+  if (wishTitle && !group.isWishlistLocked) {
+    wishlistString = JSON.stringify([
+      {
+        id: Math.random().toString(36).substring(2),
+        title: wishTitle,
+        comment: wishComment || "",
+      },
+    ]);
+  }
 
   // Check if name is taken
   const existing = await prisma.participant.findUnique({
@@ -197,11 +197,51 @@ export async function updateWishlist(
   prevState: FormState,
   formData: FormData,
 ): Promise<{ error?: string } | undefined> {
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+  });
+
+  if (!group) {
+    return { error: "Gruppe nicht gefunden." };
+  }
+
+  if (group.isWishlistLocked) {
+    return {
+      error: "Das Eintragen oder Ändern von Wünschen ist derzeit gesperrt.",
+    };
+  }
+
   const wishlist = formData.get("wishlist") as string;
 
   await prisma.participant.update({
     where: { id: participantId },
     data: { wishlist },
+  });
+
+  redirect(`/group/${groupId}`);
+}
+
+export async function toggleWishlistLock(
+  groupId: string,
+  adminId: string,
+): Promise<{ error?: string } | undefined> {
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+    include: { participants: true },
+  });
+
+  if (!group) {
+    return { error: "Gruppe nicht gefunden." };
+  }
+
+  const admin = group.participants.find(
+    (p: { id: string; isAdmin: boolean }) => p.id === adminId,
+  );
+  if (!admin || !admin.isAdmin) return { error: "Unbefugt." };
+
+  await prisma.group.update({
+    where: { id: groupId },
+    data: { isWishlistLocked: !group.isWishlistLocked },
   });
 
   redirect(`/group/${groupId}`);

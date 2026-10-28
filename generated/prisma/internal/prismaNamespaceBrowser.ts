@@ -77,6 +77,7 @@ export const GroupScalarFieldEnum = {
   description: 'description',
   dueDate: 'dueDate',
   isClosed: 'isClosed',
+  isWishlistLocked: 'isWishlistLocked',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

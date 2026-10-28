@@ -9,9 +9,11 @@ import {
   createGroup,
   updateGroupDetails,
   updateExclusions,
+  toggleWishlistLock,
 } from "@/lib/actions";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Lock, Unlock } from "lucide-react";
 import { parseWishlist, stringifyWishlist, WishItem } from "@/lib/wishlist";
+import { LinkifiedText } from "@/components/linkified-text";
 
 type FormState = { error?: string } | undefined;
 
@@ -137,7 +139,13 @@ export function CreateGroupForm() {
   );
 }
 
-export function JoinForm({ groupId }: { groupId: string }) {
+export function JoinForm({
+  groupId,
+  isWishlistLocked = false,
+}: {
+  groupId: string;
+  isWishlistLocked?: boolean;
+}) {
   const [state, action, isPending] = useActionState<FormState, FormData>(
     joinGroup.bind(null, groupId),
     undefined,
@@ -169,25 +177,35 @@ export function JoinForm({ groupId }: { groupId: string }) {
         />
       </div>
 
-      <div className="pt-2">
-        <label className="block text-sm font-medium text-neutral-300 mb-2">
-          Erster Wunsch (Optional)
-        </label>
-        <div className="space-y-2">
-          <input
-            type="text"
-            name="wishTitle"
-            placeholder="Titel (z.B. Eine Flasche Oldesloer Korn)"
-            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
-          />
-          <input
-            type="text"
-            name="wishComment"
-            placeholder="Kommentar oder Link (Optional)"
-            className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
-          />
+      {isWishlistLocked ? (
+        <div className="pt-2">
+          <p className="text-xs text-neutral-500 italic flex items-center">
+            <Lock className="w-3.5 h-3.5 mr-1.5 shrink-0 text-neutral-500" />
+            Wunschzettel sind derzeit gesperrt. Wünsche können nach
+            Freischaltung eingetragen werden.
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className="pt-2">
+          <label className="block text-sm font-medium text-neutral-300 mb-2">
+            Erster Wunsch (Optional)
+          </label>
+          <div className="space-y-2">
+            <input
+              type="text"
+              name="wishTitle"
+              placeholder="Titel (z.B. Eine Flasche Oldesloer Korn)"
+              className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
+            />
+            <input
+              type="text"
+              name="wishComment"
+              placeholder="Kommentar oder Link (Optional)"
+              className="w-full bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-neutral-100 focus:outline-none transition-all text-sm"
+            />
+          </div>
+        </div>
+      )}
 
       <SubmitButton text={isPending ? "Beitreten..." : "Gruppe beitreten"} />
     </form>
@@ -234,10 +252,14 @@ export function WishlistForm({
   groupId,
   participantId,
   initialWishlist,
+  isWishlistLocked = false,
+  isAdmin = false,
 }: {
   groupId: string;
   participantId: string;
   initialWishlist: string;
+  isWishlistLocked?: boolean;
+  isAdmin?: boolean;
 }) {
   const [state, action, isPending] = useActionState<FormState, FormData>(
     updateWishlist.bind(null, participantId, groupId),
@@ -263,6 +285,50 @@ export function WishlistForm({
   ) => {
     setWishes(wishes.map((w) => (w.id === id ? { ...w, [field]: value } : w)));
   };
+
+  if (isWishlistLocked) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-sm font-medium text-neutral-300">
+            Dein Wunschzettel
+          </label>
+          <span className="inline-flex items-center text-xs text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full border border-amber-400/20 font-medium">
+            <Lock className="w-3.5 h-3.5 mr-1.5" />
+            Gesperrt
+          </span>
+        </div>
+
+        <p className="text-xs text-neutral-400 bg-neutral-900/60 p-3 rounded-lg border border-neutral-800">
+          Das Eintragen oder Ändern von Wünschen ist derzeit vom Admin gesperrt.
+        </p>
+
+        {wishes.length === 0 ? (
+          <p className="text-sm text-neutral-500 italic py-2">
+            Du hast noch keine Wünsche hinzugefügt.
+          </p>
+        ) : (
+          <div className="space-y-3">
+            {wishes.map((wish) => (
+              <div
+                key={wish.id}
+                className="p-4 bg-neutral-900 border border-neutral-800 rounded-xl"
+              >
+                <div className="font-medium text-neutral-200 break-words [overflow-wrap:anywhere]">
+                  {wish.title}
+                </div>
+                {wish.comment && (
+                  <p className="text-sm text-neutral-400 mt-1 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                    <LinkifiedText text={wish.comment} />
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <form action={action} className="space-y-4">
@@ -340,6 +406,52 @@ export function WishlistForm({
           text={isPending ? "Speichern..." : "Wunschzettel speichern"}
         />
       </div>
+    </form>
+  );
+}
+
+export function ToggleWishlistLockForm({
+  groupId,
+  adminId,
+  isWishlistLocked,
+}: {
+  groupId: string;
+  adminId: string;
+  isWishlistLocked: boolean;
+}) {
+  const [state, action, isPending] = useActionState<FormState, FormData>(
+    toggleWishlistLock.bind(null, groupId, adminId),
+    undefined,
+  );
+
+  return (
+    <form action={action}>
+      {state?.error && (
+        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm mb-4">
+          {state.error}
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={isPending}
+        className={`w-full flex items-center justify-center font-medium rounded-xl px-4 py-3.5 transition-colors active:scale-[0.98] disabled:opacity-50 text-sm ${
+          isWishlistLocked
+            ? "bg-neutral-100 hover:bg-white text-neutral-900"
+            : "bg-neutral-800 hover:bg-neutral-700 text-neutral-100 border border-neutral-700"
+        }`}
+      >
+        {isWishlistLocked ? (
+          <>
+            <Unlock className="w-4 h-4 mr-2" />
+            {isPending ? "Wird entsperrt..." : "Wünsche entsperren"}
+          </>
+        ) : (
+          <>
+            <Lock className="w-4 h-4 mr-2" />
+            {isPending ? "Wird gesperrt..." : "Wünsche sperren"}
+          </>
+        )}
+      </button>
     </form>
   );
 }
