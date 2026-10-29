@@ -253,7 +253,6 @@ export function WishlistForm({
   participantId,
   initialWishlist,
   isWishlistLocked = false,
-  isAdmin = false,
 }: {
   groupId: string;
   participantId: string;
@@ -314,11 +313,11 @@ export function WishlistForm({
                 key={wish.id}
                 className="p-4 bg-neutral-900 border border-neutral-800 rounded-xl"
               >
-                <div className="font-medium text-neutral-200 break-words [overflow-wrap:anywhere]">
+                <div className="font-medium text-neutral-200 wrap-break-words">
                   {wish.title}
                 </div>
                 {wish.comment && (
-                  <p className="text-sm text-neutral-400 mt-1 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                  <p className="text-sm text-neutral-400 mt-1 whitespace-pre-wrap wrap-break-words">
                     <LinkifiedText text={wish.comment} />
                   </p>
                 )}
